@@ -255,7 +255,7 @@ def create_initial_user(db: Session):
 CREAMOS MAIN.py
 
 from fastapi import FastAPI
-from app.db.session import SessionLocal
+from app.db.databse import SessionLocal
 from app.core.startup import create_initial_user
 
 app = FastAPI()
@@ -969,6 +969,9 @@ docker compose up
 
 
 para reconstruir en caso que presentemos alguna error
+
+ver en http://localhost:8000/docs
+
 
 
 
