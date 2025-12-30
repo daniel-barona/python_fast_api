@@ -19,7 +19,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
 # ======================================================
-# 🔐 Obtener usuario actual desde JWT
+#  Obtener usuario actual desde JWT
 # ======================================================
 def get_current_user(
     token: str = Depends(oauth2_scheme),
@@ -51,7 +51,7 @@ def get_current_user(
 
 
 # ======================================================
-# 📝 Crear task
+# Crear task
 # ======================================================
 @router.post("/", response_model=TaskResponse)
 def create_task(
@@ -73,7 +73,7 @@ def create_task(
 
 
 # ======================================================
-# 📋 Listar tasks con PAGINACIÓN
+#  Listar tasks con PAGINACIÓN
 # ======================================================
 @router.get("/", response_model=List[TaskResponse])
 def list_tasks(
@@ -92,7 +92,7 @@ def list_tasks(
 
 
 # ======================================================
-# ✏️ Actualizar task
+#  Actualizar task
 # ======================================================
 @router.put("/{task_id}", response_model=TaskResponse)
 def update_task(
