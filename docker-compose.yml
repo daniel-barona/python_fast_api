@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:18
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+      POSTGRES_DB: technical_test
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+
+  api:
+    build: .
+    container_name: fastapi_api
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: technical_test
+      DB_USER: postgres
+      DB_PASSWORD: 123456789
+    command: >
+      sh -c "
+      echo 'Waiting for PostgreSQL...' &&
+      until pg_isready -h db -p 5432; do sleep 1; done &&
+      echo 'PostgreSQL is ready' &&
+      alembic upgrade head &&
+      uvicorn app.main:app --host 0.0.0.0 --port 8000
+      "
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
